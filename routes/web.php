@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\ClientsController;
+
 Route::get('/', function () { return redirect('/admin/home'); });
 
 // Authentication Routes...
@@ -45,5 +47,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::post('clients_restore/{id}', ['uses' => 'Admin\ClientsController@restore', 'as' => 'clients.restore']);
     Route::delete('clients_perma_del/{id}', ['uses' => 'Admin\ClientsController@perma_del', 'as' => 'clients.perma_del']);
 
- 
+    //ajax request
+    Route::get('/get-files', [ClientsController::class, 'getFiles'])->name('clients.get.files');
 });

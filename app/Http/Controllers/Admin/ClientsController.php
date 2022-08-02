@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Request;
+use App\File;
+
 use App\Client;
 use App\Folder;
-
-use Request;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StoreClientsRequest;
-use App\Http\Requests\Admin\UpdateClientsRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request as NRequest;
+use App\Http\Requests\Admin\StoreClientsRequest;
+use App\Http\Requests\Admin\UpdateClientsRequest;
 
 class ClientsController extends Controller
 {   
@@ -53,20 +54,20 @@ class ClientsController extends Controller
         
         $folders = \App\Folder::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
         $created_bies = \App\User::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
-
+        
         return view('admin.clients.create', compact('created_bies', 'folders'));
 
     }
 
-    public function edit($id)
+    public function edit(Client $client)
     {
         if (! Gate::allows('client_edit')) {
             return abort(401);
         }
         
-        $created_bies = \App\User::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
+        $client->load('folder');
 
-        $client = Client::findOrFail($id);
+        $created_bies = \App\User::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
 
         return view('admin.clients.edit', compact('client', 'created_bies'));
     }
@@ -77,8 +78,6 @@ class ClientsController extends Controller
             return abort(401);
         }
         $client = Client::create($request->all());
-
-
 
         return redirect()->route('admin.clients.index');
     }
@@ -107,12 +106,12 @@ class ClientsController extends Controller
 
         return redirect()->route('admin.clients.index');
     }
-    public function destroy($id)
+    public function destroy(Client $client)
     {
         if (! Gate::allows('client_delete')) {
             return abort(401);
         }
-        $client = Client::findOrFail($id);
+        
         $client->delete();
 
         return redirect()->route('admin.clients.index');
@@ -153,5 +152,12 @@ class ClientsController extends Controller
         return redirect()->route('admin.clients.index');
     }
 
+    public function getFiles(Request $request)
+    {
+        $folder_id = 1;
 
+        $folders = File::where('folder_id', $folder_id)->get();
+
+        // dd($folders->ge);
+    }
 }

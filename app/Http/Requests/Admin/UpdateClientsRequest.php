@@ -23,8 +23,7 @@ class UpdateClientsRequest extends FormRequest
     public function rules()
     {
         return [
-            
-            'folder_id' => 'required',
+            'folder_id' => 'nullable',
         ];
     }
 }

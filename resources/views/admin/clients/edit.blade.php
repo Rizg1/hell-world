@@ -12,9 +12,15 @@
 
         <div class="panel-body">
             <div class="row">
+                <div class="col-xs-12 fom-group">
+                    <input type="hidden" name="folder_id" value="{{ $client->folder->id }}">
+                </div>
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('name', trans('quickadmin.clients.fields.name').'', ['class' => 'control-label']) !!}
+                    {{-- {!! Form::label('name', trans('quickadmin.clients.fields.name').'', ['class' => 'control-label']) !!}
                     {!! Form::text('name', old('name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                     --}}
+                    <label for="company">Company</label>
+                    <input type="text" name="company" id="company" class="form-control" value="{{ $client->folder->name }}" disabled readonly required>
                 </div>
             </div>
             <div class="row">

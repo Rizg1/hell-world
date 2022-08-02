@@ -12,8 +12,14 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('folder_id', trans('quickadmin.files.fields.folder').'*', ['class' => 'control-label']) !!}
-                    {!! Form::select('folder_id', $folders, old('folder_id'), ['class' => 'form-control select2', 'required' => '']) !!}
+                    {{-- {!! Form::label('folder_id', trans('quickadmin.files.fields.folder').'*', ['class' => 'control-label', 'id' => 'company_id']) !!}
+                    {!! Form::select('folder_id', $folders, old('folder_id'), ['class' => 'form-control select2', 'required' => '']) !!} --}}
+                    <select name="folder_id" id="company" class="form-control select2" required>
+                        @foreach ($folders as $key => $folder)
+                            <option value="{{ $key }}">{{ $folder }}</option>
+                        @endforeach
+                    </select>
+                    
                     <p class="help-block"></p>
                     @if($errors->has('folder_id'))
                         <p class="help-block">
@@ -88,4 +94,30 @@
     {!! Form::submit(trans('quickadmin.qa_save'), ['class' => 'btn btn-danger']) !!}
     {!! Form::close() !!}
 @stop
+
+@push('javascript')
+    <script>
+        $(document).ready(function(){
+            $('#company').on('change', function () {
+                var company_id = $('#company').val()
+
+                $.ajax({
+                url: "{{ route('admin.clients.get.files') }}",
+                dataType: 'json',
+                type: 'post',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    company_id: company_id
+                },
+                success: function( data, textStatus, jQxhr ){
+                    console.log(data)
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+            })
+        })
+    </script>
+@endpush
 
