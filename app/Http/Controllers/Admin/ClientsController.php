@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Client;
 use App\Folder;
+
 use Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -50,9 +51,10 @@ class ClientsController extends Controller
             return abort(401);
         }
         
+        $folders = \App\Folder::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
         $created_bies = \App\User::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
 
-        return view('admin.clients.create', compact('created_bies'));
+        return view('admin.clients.create', compact('created_bies', 'folders'));
 
     }
 
@@ -105,4 +107,51 @@ class ClientsController extends Controller
 
         return redirect()->route('admin.clients.index');
     }
+    public function destroy($id)
+    {
+        if (! Gate::allows('client_delete')) {
+            return abort(401);
+        }
+        $client = Client::findOrFail($id);
+        $client->delete();
+
+        return redirect()->route('admin.clients.index');
+    }
+    public function massDestroy(NRequest $request)
+    {
+        if (! Gate::allows('client_delete')) {
+            return abort(401);
+        }
+        if ($request->input('ids')) {
+            $entries = Client::whereIn('id', $request->input('ids'))->get();
+
+            foreach ($entries as $entry) {
+                $entry->deletePreservingMedia();
+            }
+        }
+    }
+
+    public function restore($id)
+    {
+        if (! Gate::allows('client_delete')) {
+            return abort(401);
+        }
+        $client = Client::onlyTrashed()->findOrFail($id);
+        $client->restore();
+
+        return redirect()->route('admin.clients.index');
+    }
+
+    public function perma_del($id)
+    {
+        if (! Gate::allows('client_delete')) {
+            return abort(401);
+        }
+        $client = Client::onlyTrashed()->findOrFail($id);
+        $client->forceDelete();
+
+        return redirect()->route('admin.clients.index');
+    }
+
+
 }

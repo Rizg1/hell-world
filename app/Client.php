@@ -16,7 +16,8 @@ class Client extends Model
 {
     use SoftDeletes,InteractsWithMedia, FilterByUser;
 
-    protected $fillable = ['name','folder_id','created_by_id'];
+    protected $fillable = ['kyc_form', 'enrollment_list','signed_proposal','sec_articles',
+    'articles_incorp','by_laws','coc','cert_list','valid_id','statement','folder_id','created_by_id'];
     
     
 

@@ -16,8 +16,17 @@ return new class extends Migration
         if(! Schema::hasTable('clients')) {
             Schema::create('clients', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('cid')->nullable();
-                $table->string('remarks')->nullable();
+                $table->string('kyc_form')->nullable();
+                $table->string('enrollment_list')->nullable();
+                $table->string('signed_proposal')->nullable();
+                $table->string('sec_articles')->nullable();
+                $table->string('articles_incorp')->nullable();
+                $table->string('by_laws')->nullable();
+                $table->string('coc')->nullable();
+                $table->string('cert_list')->nullable();
+                $table->string('valid_id')->nullable();
+                $table->string('statement')->nullable();
+ 
                 
 
                 $table->timestamps();

@@ -47,9 +47,22 @@
                             @endcan
                             <td field-key='filename'> @foreach($file->getMedia('filename') as $media)
                                     <p class="form-group">
-                                        <a href="{{url('/admin/' . $file->uuid . '/download')}}" target="_blank">{{ $media->name }} ({{ $media->size }} KB)</a>
+                                        <a href="#" data-target="#filemodal" data-toggle="modal">{{ $media->file_name }}</a>
                                     </p>
                                 @endforeach</td>
+                                <div class="modal" id="filemodal" tabindex="-1">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <img src="{{$file->id}}" class="img-thumbnail ">
+                                            </div>
+                                            </div>
+                                        </div>
+                                </div>
+
                             <td field-key='folder'>{{ $file->folder->name }}</td>
                             @if( request('show_deleted') == 1 )
                                 <td>

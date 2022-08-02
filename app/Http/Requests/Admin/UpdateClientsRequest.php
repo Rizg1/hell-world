@@ -24,7 +24,7 @@ class UpdateClientsRequest extends FormRequest
     {
         return [
             
-            'name' => 'required',
+            'folder_id' => 'required',
         ];
     }
 }

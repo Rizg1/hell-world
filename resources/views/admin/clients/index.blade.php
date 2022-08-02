@@ -33,7 +33,7 @@
                             <th style="text-align:center;"><input type="checkbox" id="select-all"/></th>@endif
                     @endcan
 
-                    <th>Name</th>
+                    <th>Company Name</th>
                     <th>KYC Form</th>
                     <th>Member Enrollment List</th>
                     <th>Signed Proposal</th>
@@ -63,7 +63,7 @@
 
                             <td field-key='name'>
                                 @can('client_view')
-                                    {{$client->name}}
+                                   {{$client->folder->name}} 
                                     </td>
                             @endcan
                             <td field-key='kyc_form'>
@@ -142,14 +142,22 @@
                                     @can('client_edit')
                                         <a href="{{ route('admin.clients.edit',[$client->id]) }}" class="btn btn-xs btn-info">@lang('quickadmin.qa_edit')</a>
                                     @endcan
-                                    
+                                    @can('client_delete')
+                                        {!! Form::open(array(
+                                                                                'style' => 'display: inline-block;',
+                                                                                'method' => 'DELETE',
+                                                                                'onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');",
+                                                                                'route' => ['admin.clients.destroy', $client->id])) !!}
+                                        {!! Form::submit(trans('quickadmin.qa_delete'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                        {!! Form::close() !!}
+                                    @endcan
                                 </td>
                             @endif
                         </tr>
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="12">@lang('quickadmin.qa_no_entries_in_table')</td>
+                        <td colspan="13">@lang('quickadmin.qa_no_entries_in_table')</td>
                     </tr>
                 @endif
                 </tbody>
@@ -158,3 +166,12 @@
     </div>
 @stop
 
+@section('javascript')
+    
+    <script>
+        @can('folder_delete')
+                @if ( request('show_deleted') != 1 ) window.route_mass_crud_entries_destroy = '{{ route('admin.clients.mass_destroy') }}'; @endif
+        @endcan
+
+    </script>
+@endsection

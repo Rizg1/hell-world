@@ -23,7 +23,7 @@ class StoreClientsRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'folder_id' => 'required',
         ];
     }
 }

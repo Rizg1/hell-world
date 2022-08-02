@@ -27,7 +27,7 @@ return [
 	],
 
 	'folders' => [
-		'title' => 'Folders',
+		'title' => 'Company',
 		'fields' => [
 			'name' => 'Name',
 			'created-by' => 'Created by',
@@ -45,9 +45,9 @@ return [
 	],
 
 	'clients' => [
-		'title' => 'Clients Details',
+		'title' => 'Company Details',
 		'fields' => [
-			'name' => 'Clients Name',
+			'name' => 'Company Name',
 			'kyc_form' => 'KYC Form',
 			'enrollment_list' => 'Member Enrollment List',
 			'signed_proposal' => 'Signed Proposal',
@@ -59,6 +59,7 @@ return [
 			'valid_id' => 'Copy of Valid IDs',
 			'statement' => 'Sworn Statement',
 			'created-by' => 'Created by',
+			'folder' => 'Folder'
 		],
 	],
 

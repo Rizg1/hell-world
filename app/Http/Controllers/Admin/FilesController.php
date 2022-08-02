@@ -47,6 +47,7 @@ class FilesController extends Controller
         $user = Auth::getUser();
         $userFilesCount = File::where('created_by_id', $user->id)->count();
 
+
         return view('admin.files.index', compact('files', 'userFilesCount'));
     }
 
@@ -170,7 +171,8 @@ class FilesController extends Controller
         }
         $file = File::findOrFail($id);
         $file->deletePreservingMedia();
-
+        
+  
         return redirect()->route('admin.files.index');
     }
 
