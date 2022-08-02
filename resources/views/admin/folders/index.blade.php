@@ -81,7 +81,7 @@
         'method' => 'DELETE',
         'onsubmit' => "return confirm('".trans("quickadmin.qa_are_you_sure")."');",
         'route' => ['admin.folders.perma_del', $folder->id])) !!}
-                                        {!! Form::submit(trans('quickadmin.qa_permadel'), array('class' => 'btn btn-xs btn-danger')) !!}
+                                        {!! Form::submit(trans('quickadmin.qa_permadel'), array('class' => 'btn btn-xs btn-warning')) !!}
                                         {!! Form::close() !!}
                                     @endcan
                                 </td>
