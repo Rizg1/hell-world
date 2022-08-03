@@ -25,8 +25,13 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('kyc_form', trans('quickadmin.clients.fields.kyc_form').'', ['class' => 'control-label']) !!}
-                    {!! Form::text('kyc_form', old('kyc_form'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+                    {{-- {!! Form::label('kyc_form', trans('quickadmin.clients.fields.kyc_form').'', ['class' => 'control-label']) !!}
+                    {!! Form::text('kyc_form', old('kyc_form'), ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!} --}}
+                    <select name="kyc_form" id="kyc_form" class="form-control select2">
+                        @foreach ($filenames as $filename)
+                            <option value="{{ $filename['id'] }}">{{ $filename['filename'] }}</option>
+                        @endforeach
+                    </select>
                     @if($errors->has('kyc_form'))
                         <p class="help-block">
                             {{ $errors->first('kyc_form') }}

@@ -24,7 +24,7 @@ class StoreClientsRequest extends FormRequest
     {
         return [
             'folder_id' => 'required|bail',
-            'kyc_form' => 'required|string',
+            'kyc_form' => 'required|integer',
         ];
     }
 

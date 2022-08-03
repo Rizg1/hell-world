@@ -1,10 +1,11 @@
 <?php
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\FilterByUser;
+use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * Class Client
  *
@@ -12,7 +13,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property string $name
  * @property string $created_by
 */
-class Client extends Model
+class Client extends Model implements HasMedia
 {
     use SoftDeletes,InteractsWithMedia, FilterByUser;
 

@@ -30,8 +30,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 form-group">
-                    {!! Form::label('kyc_form', trans('quickadmin.clients.fields.kyc_form').'', ['class' => 'control-label']) !!}
-                    {!! Form::text('kyc_form', old('kyc_form'), ['class' => 'form-control', 'placeholder' => '']) !!}
+                    {{-- {!! Form::label('kyc_form', trans('quickadmin.clients.fields.kyc_form').'', ['class' => 'control-label']) !!}
+                    {!! Form::text('kyc_form', old('kyc_form'), ['class' => 'form-control', 'placeholder' => '']) !!} --}}
+                    <select name="kyc_form" id="kyc_form" class="form-control select2"></select>
                 </div>
             </div>
             <div class="row">
@@ -102,15 +103,18 @@
                 var company_id = $('#company').val()
 
                 $.ajax({
-                url: "{{ route('admin.clients.get.files') }}",
-                dataType: 'json',
-                type: 'post',
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    company_id: company_id
+                    url: "{{ route('admin.clients.get.files') }}",
+                    method: 'post',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        company_id: company_id
                 },
                 success: function( data, textStatus, jQxhr ){
-                    console.log(data)
+                    $('#kyc_form').empty()
+                    $.each(data ,function(key, value){
+                        // $("#kyc_form").append('<option value=' + key + '>' + value + '</option>')
+                        $('#kyc_form').append($('<option>', {value: key, text: value}))
+                    })
                 },
                 error: function( jqXhr, textStatus, errorThrown ){
                     console.log( errorThrown );

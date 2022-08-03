@@ -61,6 +61,15 @@ class ClientsController extends Controller
 
     public function edit(Client $client)
     {
+        $files = File::where('folder_id', $client->folder_id)->get();
+
+        $filenames = [];
+        foreach ($files as $file) {
+            foreach ($file->getMedia('filename') as $f) {
+                $filenames[] = ['id' => $f->id, 'filename' => $f->file_name];
+            }
+        }
+        
         if (! Gate::allows('client_edit')) {
             return abort(401);
         }
@@ -69,11 +78,12 @@ class ClientsController extends Controller
 
         $created_bies = \App\User::get()->pluck('name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
 
-        return view('admin.clients.edit', compact('client', 'created_bies'));
+        return view('admin.clients.edit', compact('client', 'created_bies', 'filenames'));
     }
 
     public function store(StoreClientsRequest $request)
     {
+        
         if (! Gate::allows('client_create')) {
             return abort(401);
         }
@@ -152,12 +162,19 @@ class ClientsController extends Controller
         return redirect()->route('admin.clients.index');
     }
 
-    public function getFiles(Request $request)
+    public function getFiles(NRequest $request)
     {
-        $folder_id = 1;
+        $company_id = $request->company_id;
 
-        $folders = File::where('folder_id', $folder_id)->get();
+        $files = File::where('folder_id', $company_id)->get();
 
-        // dd($folders->ge);
+        $filenames = [];
+        foreach ($files as $file) {
+            foreach ($file->getMedia('filename') as $f) {
+                $filenames[] = $f->file_name;
+            }
+        }
+
+        return $filenames;
     }
 }
