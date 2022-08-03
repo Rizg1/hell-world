@@ -14,6 +14,7 @@
                 <div class="col-xs-12 form-group">
                     {{-- {!! Form::label('folder_id', trans('quickadmin.files.fields.folder').'*', ['class' => 'control-label', 'id' => 'company_id']) !!}
                     {!! Form::select('folder_id', $folders, old('folder_id'), ['class' => 'form-control select2', 'required' => '']) !!} --}}
+                    <label for="company">Company</label>
                     <select name="folder_id" id="company" class="form-control select2" required>
                         @foreach ($folders as $key => $folder)
                             <option value="{{ $key }}">{{ $folder }}</option>
@@ -32,6 +33,7 @@
                 <div class="col-xs-12 form-group">
                     {{-- {!! Form::label('kyc_form', trans('quickadmin.clients.fields.kyc_form').'', ['class' => 'control-label']) !!}
                     {!! Form::text('kyc_form', old('kyc_form'), ['class' => 'form-control', 'placeholder' => '']) !!} --}}
+                    <label for="kyc_form">KYC Form</label>
                     <select name="kyc_form" id="kyc_form" class="form-control select2">
                     </select>
                 </div>
