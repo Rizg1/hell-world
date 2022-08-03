@@ -68,7 +68,7 @@
                                 @endcan
                             <td field-key='kyc_form'>
                                 @can('client_view')
-                                    {{$client->kyc_form}}
+                                    {{$client->mediaFiles->file_name}}
                                     </td>
                             @endcan
                             <td field-key='enrollment_list'>

@@ -43,4 +43,9 @@ class Client extends Model implements HasMedia
     {
         $this->attributes['folder_id'] = $input ? $input : null;
     }
+
+    public function mediaFiles()
+    {
+        return $this->belongsTo(Media::class, 'kyc_form');
+    }
 }
