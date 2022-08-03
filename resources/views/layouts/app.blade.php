@@ -54,5 +54,7 @@
 {!! Form::close() !!}
 
 @include('partials.javascripts')
+
+@stack('javascript')
 </body>
 </html>

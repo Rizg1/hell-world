@@ -41,7 +41,4 @@
 </script>
 
  
-
-
-
 @yield('javascript')

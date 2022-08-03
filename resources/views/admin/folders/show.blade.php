@@ -45,24 +45,26 @@
                                 @if ( request('show_deleted') != 1 )
                                     <td></td>@endif
                             @endcan
-                            <td field-key='filename'> @foreach($file->getMedia('filename') as $media)
+                            <td field-key='filename'> 
+                                @foreach($file->getMedia('filename') as $media)
                                     <p class="form-group">
-                                        <a href="#" data-target="#filemodal" data-toggle="modal">{{ $media->file_name }}</a>
+                                        <a href="#" data-target="#filemodal{{ $media->id }}" data-toggle="modal">{{ $media->file_name }}</a>
                                     </p>
-                                @endforeach</td>
-                                <div class="modal" id="filemodal" tabindex="-1">
-                                        <div class="modal-dialog" role="document">
+
+                                    <div class="modal" id="filemodal{{ $media->id }}" tabindex="-1">
+                                        <div class="modal-dialog modal-lg" role="document">
                                             <div class="modal-content">
                                             <div class="modal-body text-center">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
-                                                <img src="{{$file->id}}" class="img-thumbnail ">
+                                                <embed src="{{ asset('storage/'. $media->model_id. '/' . $media->file_name) }}" frameborder="0" width="100%" height="800px"></embed>
                                             </div>
                                             </div>
                                         </div>
-                                </div>
-
+                                    </div>
+                                @endforeach</td>
+                                
                             <td field-key='folder'>{{ $file->folder->name }}</td>
                             @if( request('show_deleted') == 1 )
                                 <td>

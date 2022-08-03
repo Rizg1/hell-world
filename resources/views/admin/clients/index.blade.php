@@ -63,12 +63,12 @@
 
                             <td field-key='name'>
                                 @can('client_view')
-                                   {{$client->folder->name}} 
+                                    <a href="{{ route('admin.folders.show', $client->folder->id) }}">{{$client->folder->name}}</a>
                                     </td>
-                            @endcan
+                                @endcan
                             <td field-key='kyc_form'>
                                 @can('client_view')
-                                    {{$client->kyc_form}}
+                                    {{$client->mediaFiles->file_name}}
                                     </td>
                             @endcan
                             <td field-key='enrollment_list'>

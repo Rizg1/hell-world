@@ -23,7 +23,16 @@ class StoreClientsRequest extends FormRequest
     public function rules()
     {
         return [
-            'folder_id' => 'required',
+            'folder_id' => 'required|bail',
+            'kyc_form' => 'required|integer',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'folder_id' => 'The Company field is required',
+            'kyc_form.required' => 'The Know Your Customer(KYC) field is required',
         ];
     }
 }
