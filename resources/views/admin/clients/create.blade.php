@@ -32,7 +32,8 @@
                 <div class="col-xs-12 form-group">
                     {{-- {!! Form::label('kyc_form', trans('quickadmin.clients.fields.kyc_form').'', ['class' => 'control-label']) !!}
                     {!! Form::text('kyc_form', old('kyc_form'), ['class' => 'form-control', 'placeholder' => '']) !!} --}}
-                    <select name="kyc_form" id="kyc_form" class="form-control select2"></select>
+                    <select name="kyc_form" id="kyc_form" class="form-control select2">
+                    </select>
                 </div>
             </div>
             <div class="row">
@@ -111,8 +112,8 @@
                 },
                 success: function( data, textStatus, jQxhr ){
                     $('#kyc_form').empty()
+                    $("#kyc_form").append('<option value="">Select option</option>')
                     $.each(data ,function(key, value){
-                        // $("#kyc_form").append('<option value=' + key + '>' + value + '</option>')
                         $('#kyc_form').append($('<option>', {value: key, text: value}))
                     })
                 },
