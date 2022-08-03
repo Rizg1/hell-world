@@ -24,6 +24,7 @@ class UpdateClientsRequest extends FormRequest
     {
         return [
             'folder_id' => 'nullable',
+            'kyc_form' => 'nullable'
         ];
     }
 }

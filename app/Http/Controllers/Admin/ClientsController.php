@@ -69,7 +69,7 @@ class ClientsController extends Controller
                 $filenames[] = ['id' => $f->id, 'filename' => $f->file_name];
             }
         }
-        
+
         if (! Gate::allows('client_edit')) {
             return abort(401);
         }
@@ -110,8 +110,10 @@ class ClientsController extends Controller
             return abort(401);
         }
         $client = Client::findOrFail($id);
-        $client->update($request->all());
 
+        $data = $request->validated();
+
+        $client->update($data);
 
 
         return redirect()->route('admin.clients.index');
